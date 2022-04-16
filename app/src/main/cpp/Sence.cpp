@@ -4,19 +4,31 @@
 
 #include "Sence.h"
 
-extern "C"
-JNIEXPORT jint JNICALL
-Java_com_jtl_learnogles_MainActivity_getTest(JNIEnv *env, jobject thiz) {
-    // TODO: implement getTest()
-
-    return 200;
+AAssetManager * aAssetManager = nullptr;
+unsigned char* loadFileContent(char * filePath,int& fileSize){
+    unsigned char* content = nullptr;
+    AAsset* aAsset = AAssetManager_open(aAssetManager,filePath,AASSET_MODE_UNKNOWN);
+    if (aAsset!= nullptr){
+        fileSize  = AAsset_getLength(aAsset);
+        content = new unsigned char [fileSize+1];
+        AAsset_read(aAsset,content,fileSize);
+        *(content+fileSize) = 0;
+        AAsset_close(aAsset);
+    }
+    return content;
 }
+
+
 
 extern "C"
 JNIEXPORT void JNICALL
 Java_com_jtl_learnogles_OpenGLHelper_Init (JNIEnv *env, jobject thiz){
     glClearColor(0.1,0.3,0.8,1.0);
-    __android_log_print(ANDROID_LOG_DEBUG,TAG,"Init");
+    int size = 0;
+    unsigned char* text = loadFileContent("text.txt",size);
+
+
+    __android_log_print(ANDROID_LOG_DEBUG,TAG,"Init:%s",text);
 }
 extern "C"
 JNIEXPORT void JNICALL
@@ -30,4 +42,10 @@ Java_com_jtl_learnogles_OpenGLHelper_Render(JNIEnv *env, jobject thiz){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     __android_log_print(ANDROID_LOG_DEBUG,TAG,"Render");
 
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_jtl_learnogles_MainActivity_initAssetManager(JNIEnv *env, jobject thiz,
+                                                      jobject asset_manager) {
+    aAssetManager = AAssetManager_fromJava(env,asset_manager);
 }

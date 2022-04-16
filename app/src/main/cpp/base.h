@@ -9,5 +9,7 @@
 #include <GLES2/gl2platform.h>
 // log库
 #include <android/log.h>
-
 #define TAG "LearnOpenGL"
+//AssetManager
+#include "android/asset_manager.h"
+#include "android/asset_manager_jni.h"
