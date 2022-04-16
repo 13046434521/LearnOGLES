@@ -27,3 +27,27 @@
                 ${log-lib}
                 ${gl2})
     ```
+##### NDK中增加LOG日志
+    1. cmake中添加log库
+    ```cmake
+    find_library( # Sets the name of the path variable.
+            log-lib
+
+            # Specifies the name of the NDK library that
+            # you want CMake to locate.
+            log)
+    target_link_libraries( # Specifies the target library.
+            learnogles
+
+            # Links the target library to the log library
+            # included in the NDK.
+            ${log-lib})
+    ```
+    2. 添加头文件
+    ```c++
+        #include<android/log.h>
+    ```
+    3. 代码中使用
+    ```c++
+        __android_log_print(ANDROID_LOG_DEBUG,TAG,"Init");
+    ```
