@@ -3,6 +3,7 @@
 //
 
 #include "Sence.h"
+#include "Utils.h"
 
 AAssetManager * aAssetManager = nullptr;
 unsigned char* loadFileContent(char * filePath,int& fileSize){
@@ -40,7 +41,7 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_jtl_learnogles_OpenGLHelper_Render(JNIEnv *env, jobject thiz){
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    __android_log_print(ANDROID_LOG_DEBUG,TAG,"Render");
+    __android_log_print(ANDROID_LOG_DEBUG,TAG,"Render:%f",getFrameTime());
 
 }
 extern "C"
