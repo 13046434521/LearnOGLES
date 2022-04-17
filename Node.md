@@ -51,3 +51,27 @@
     ```c++
         __android_log_print(ANDROID_LOG_DEBUG,TAG,"Init");
     ```
+### CW和CCW
+    CW:顺时针
+    CCW:逆时针
+    OpenGL中顶点连接顺序是CCW时，意味着是正面
+
+### VBO
+    vertex buffer object:顶点缓冲区
+    创建显存
+    将数据从cpu传递到gpu
+    ```c++
+        GLuint  vbo ;
+        glGenBuffers(1,&vbo);// 生成一个vbo缓冲区
+        glBindBuffer(GL_ARRAY_BUFFER,vbo);//将GL_ARRAY_BUFFER卡槽设置指向vbo
+        // 在显存中开辟空间
+        glBufferData(GL_ARRAY_BUFFER,sizeof (Vertice)*3, nullptr,GL_STATIC_DRAW);//  GL_STATIC_DRAW:静态不会改变
+        // 设置数据到显存
+        glBufferSubData(GL_ARRAY_BUFFER,0,sizeof (Vertice)*3,vertice);
+        // glBufferData(GL_ARRAY_BUFFER, sizeof(Vertice)*3,vertice,GL_STATIC_DRAW); // 直接在显存中开辟内存+设置数据
+        // 等价于：
+        //1. glBufferData(GL_ARRAY_BUFFER,sizeof (Vertice)*3, nullptr,GL_STATIC_DRAW);//  GL_STATIC_DRAW:静态不会改变
+        //2. glBufferSubData(GL_ARRAY_BUFFER,0,sizeof (Vertice)*3,vertice);
+        // 将GL_ARRAY_BUFFER卡槽 设置指向0
+        glBindBuffer(GL_ARRAY_BUFFER,0);
+    ```
