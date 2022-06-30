@@ -19,3 +19,5 @@
 //Glm数学库
 #include "Glm/glm.hpp"
 #include "Glm/ext.hpp"
+
+#include "Log.h"

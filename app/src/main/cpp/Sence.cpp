@@ -26,7 +26,8 @@ JNIEXPORT void JNICALL
 Java_com_jtl_learnogles_OpenGLHelper_Init(JNIEnv *env, jobject thiz) {
     glClearColor(0.1, 0.3, 0.8, 1.0);
     int size = 0;
-    unsigned char *text = loadFileContent("text.txt", size);
+
+    unsigned char *text = loadFileContent((char *)"text.txt", size);
 
 
     // 顶点坐标
@@ -46,7 +47,7 @@ Java_com_jtl_learnogles_OpenGLHelper_Init(JNIEnv *env, jobject thiz) {
     vertice[2].mPosition[2] = -2.0f,
     vertice[2].mPosition[3] = 1.0f;
 
-    GLuint  vbo ;
+    GLuint vbo ;
     glGenBuffers(1,&vbo);// 生成一个vbo缓冲区
     glBindBuffer(GL_ARRAY_BUFFER,vbo);//将GL_ARRAY_BUFFER卡槽设置指向vbo
     // 在显存中开辟空间

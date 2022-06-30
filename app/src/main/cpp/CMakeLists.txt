@@ -13,7 +13,11 @@ project("learnogles")
 # or SHARED, and provides the relative paths to its source code.
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
-
+#include_directories(${CMAKE_CURRENT_LIST_DIR})
+message("CMAKE_CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR}")
+message("CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
+message("CMAKE_INCLUDE_CURRENT_DIR ${CMAKE_INCLUDE_CURRENT_DIR}")
+file(GLOB all_cpp  *h *cpp *c)
 add_library( # Sets the name of the library.
         learnogles
 
@@ -52,10 +56,6 @@ target_link_libraries( # Specifies the target library.
 
         # Links the target library to the log library
         # included in the NDK.
-        android
-        ${log-lib}
+        android #直接找相应的库
+        ${log-lib} #一种是先find_library命名的方式，另一种是直接log
         ${gl2})
-
-#add_executable(
-#        learnogles
-#        native-lib.cpp)
